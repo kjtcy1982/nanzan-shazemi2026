@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>R で分析する｜社会心理学ゼミ ポータル</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --blue-800: #1a5276; --blue-700: #1f6d9e; --blue-600: #2980b9;
+  --blue-100: #d6eaf8; --blue-50: #eaf2f8;
+  --gray-50: #f8f9fa; --gray-200: #e9ecef; --gray-500: #868e96;
+  --gray-700: #495057; --gray-900: #212529; --white: #ffffff;
+  --radius: 10px; --shadow: 0 2px 8px rgba(0,0,0,.08); --shadow-hover: 0 4px 16px rgba(0,0,0,.12);
+}
+html { scroll-behavior: smooth; }
+body { font-family: "Hiragino Kaku Gothic ProN","Noto Sans JP","Meiryo",sans-serif; background: var(--gray-50); color: var(--gray-900); line-height: 1.7; -webkit-text-size-adjust: 100%; }
+.page-header { background: linear-gradient(135deg, var(--blue-800), var(--blue-700)); color: var(--white); padding: 1.6rem 1rem 1.2rem; }
+.page-header .back { color: rgba(255,255,255,.7); text-decoration: none; font-size: .82rem; display: inline-block; margin-bottom: .4rem; }
+.page-header .back:hover { color: #fff; }
+.page-header h1 { font-size: 1.35rem; font-weight: 700; }
+.main { max-width: 820px; margin: 0 auto; padding: 1.2rem 1rem 3rem; }
+.card { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.2rem 1.3rem 1.4rem; margin-bottom: 1rem; }
+.sub-heading { font-size: .95rem; font-weight: 700; color: var(--blue-800); margin: 1.4rem 0 .6rem; padding-bottom: .3rem; border-bottom: 2px solid var(--blue-100); }
+.card > .sub-heading:first-child { margin-top: 0; }
+.link-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: .6rem; }
+.link-card { display: flex; align-items: center; gap: .6rem; padding: .7rem .9rem; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 8px; text-decoration: none; color: var(--gray-900); font-size: .88rem; font-weight: 500; transition: box-shadow .15s, border-color .15s; }
+.link-card:hover { border-color: var(--blue-600); box-shadow: var(--shadow-hover); }
+.link-card .icon { font-size: 1.2rem; flex-shrink: 0; width: 1.6rem; text-align: center; }
+.link-card .label { line-height: 1.35; }
+.link-card .label small { display: block; font-weight: 400; font-size: .78rem; color: var(--gray-500); }
+.format-list { list-style: disc; padding-left: 1.4rem; font-size: .9rem; }
+.format-list li { margin-bottom: .35rem; }
+.pkg-list { list-style: none; padding-left: 0; font-size: .9rem; }
+.pkg-list li { padding: .45rem .7rem; background: var(--gray-50); border-radius: 6px; border-left: 3px solid var(--blue-600); margin-bottom: .35rem; }
+.pkg-list li code { font-family: "SFMono-Regular","Consolas","Menlo",monospace; background: var(--blue-100); padding: .1rem .35rem; border-radius: 4px; font-size: .85rem; font-weight: 600; color: var(--blue-800); }
+.info-box { background: var(--blue-50); border-left: 4px solid var(--blue-600); padding: .7rem 1rem; border-radius: 0 8px 8px 0; font-size: .88rem; margin-top: .8rem; color: var(--gray-700); }
+.info-box strong { color: var(--blue-800); }
+.site-footer { text-align: center; padding: 1.5rem 1rem; font-size: .8rem; color: var(--gray-500); border-top: 1px solid var(--gray-200); margin-top: 1rem; }
+@media (max-width: 600px) { .page-header { padding: 1.2rem .8rem 1rem; } .page-header h1 { font-size: 1.15rem; } .card { padding: 1rem; } .link-cards { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <a class="back" href="index.html">← ポータルに戻る</a>
+  <h1>📊 R で分析する</h1>
+</header>
+
+<main class="main">
+
+  <div class="card">
+    <h3 class="sub-heading">セットアップ</h3>
+    <div class="link-cards">
+      <a class="link-card" href="https://cran.r-project.org/" target="_blank" rel="noopener">
+        <span class="icon">📦</span>
+        <span class="label">R のインストール<small>CRAN 公式サイト</small></span>
+      </a>
+      <a class="link-card" href="https://posit.co/download/rstudio-desktop/" target="_blank" rel="noopener">
+        <span class="icon">💻</span>
+        <span class="label">RStudio のインストール<small>Posit 公式サイト</small></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="sub-heading">基本統計</h3>
+    <ul class="format-list">
+      <li><strong>記述統計</strong> ― 平均・標準偏差（SD）・最小値・最大値</li>
+      <li><strong>相関分析</strong> ― 相関行列の作成と有意性の検討</li>
+      <li><strong>t 検定</strong> ― 2群間の平均値差の検定</li>
+      <li><strong>分散分析（ANOVA）</strong> ― 3群以上の平均値差の検定</li>
+    </ul>
+
+    <h3 class="sub-heading">応用分析</h3>
+    <ul class="format-list">
+      <li><strong>回帰分析</strong> ― 単回帰・重回帰</li>
+      <li><strong>因子分析</strong> ― 探索的因子分析（EFA）・確認的因子分析（CFA）</li>
+      <li><strong>媒介分析・調整分析</strong> ― 間接効果・交互作用の検討</li>
+      <li><strong>構造方程式モデリング（SEM）</strong> ― パス解析・潜在変数モデル</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3 class="sub-heading">必須パッケージ</h3>
+    <ul class="pkg-list">
+      <li><code>tidyverse</code> ― データ整理・可視化（dplyr, ggplot2 等）</li>
+      <li><code>psych</code> ― 心理統計（記述統計・因子分析・信頼性分析）</li>
+      <li><code>lavaan</code> ― 構造方程式モデリング（SEM）・パス解析</li>
+      <li><code>car</code> ― 分散分析・回帰診断</li>
+      <li><code>effectsize</code> ― 効果量の算出（Cohen's d, η² 等）</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3 class="sub-heading">データ記載の基準</h3>
+    <div class="info-box">
+      <strong>論文に記載すべき統計情報：</strong>
+      <ul style="margin-top:.4rem; padding-left:1.2rem; font-size:.85rem;">
+        <li>全変数の<strong>最小値・最大値・平均値・標準偏差</strong></li>
+        <li>相関行列に<strong>有意性の表記</strong>（* p &lt; .05, ** p &lt; .01）</li>
+        <li><strong>効果量</strong>と<strong>信頼区間</strong>の報告</li>
+      </ul>
+    </div>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  社会心理学ゼミ ポータル ／ 南山大学 土屋耕治
+</footer>
+
+</body>
+</html>

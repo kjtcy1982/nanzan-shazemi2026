@@ -6,9 +6,7 @@
 <meta name="robots" content="noindex, nofollow">
 <title>社会心理学ゼミ ポータル｜南山大学 土屋ゼミ</title>
 <style>
-/* ── Reset & Base ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
   --blue-900: #0e2f44;
   --blue-800: #1a5276;
@@ -17,9 +15,7 @@
   --blue-100: #d6eaf8;
   --blue-50:  #eaf2f8;
   --gray-50:  #f8f9fa;
-  --gray-100: #f1f3f5;
   --gray-200: #e9ecef;
-  --gray-300: #dee2e6;
   --gray-500: #868e96;
   --gray-700: #495057;
   --gray-900: #212529;
@@ -28,9 +24,7 @@
   --shadow:   0 2px 8px rgba(0,0,0,.08);
   --shadow-hover: 0 4px 16px rgba(0,0,0,.12);
 }
-
 html { scroll-behavior: smooth; }
-
 body {
   font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Meiryo", sans-serif;
   background: var(--gray-50);
@@ -38,247 +32,54 @@ body {
   line-height: 1.7;
   -webkit-text-size-adjust: 100%;
 }
-
-/* ── Header ── */
 .site-header {
   background: linear-gradient(135deg, var(--blue-800), var(--blue-700));
   color: var(--white);
   text-align: center;
   padding: 2.5rem 1rem 2rem;
 }
-.site-header h1 {
-  font-size: 1.6rem;
-  font-weight: 700;
-  letter-spacing: .05em;
-}
-.site-header .subtitle {
-  font-size: .9rem;
-  opacity: .85;
-  margin-top: .35rem;
-  font-weight: 400;
-}
-
-/* ── Main ── */
+.site-header h1 { font-size: 1.6rem; font-weight: 700; letter-spacing: .05em; }
+.site-header .subtitle { font-size: .9rem; opacity: .85; margin-top: .35rem; font-weight: 400; }
 .main {
   max-width: 820px;
   margin: 0 auto;
-  padding: 1.2rem 1rem 3rem;
+  padding: 1.5rem 1rem 3rem;
 }
-
-/* ── Accordion (details/summary) ── */
-details.section {
+.nav-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+  margin-top: .5rem;
+}
+.nav-card {
+  display: block;
   background: var(--white);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  margin-bottom: 1rem;
-  overflow: hidden;
-}
-details.section > summary {
-  display: flex;
-  align-items: center;
-  gap: .6rem;
-  padding: 1rem 1.2rem;
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--blue-800);
-  cursor: pointer;
-  list-style: none;
-  user-select: none;
-  transition: background .15s;
-}
-details.section > summary::-webkit-details-marker { display: none; }
-details.section > summary::before {
-  content: "";
-  display: inline-block;
-  width: .5rem; height: .5rem;
-  border-right: 2.5px solid var(--blue-600);
-  border-bottom: 2.5px solid var(--blue-600);
-  transform: rotate(-45deg);
-  transition: transform .2s;
-  flex-shrink: 0;
-}
-details.section[open] > summary::before {
-  transform: rotate(45deg);
-}
-details.section > summary:hover { background: var(--blue-50); }
-details.section > .content { padding: 0 1.2rem 1.4rem; }
-
-/* ── Subsection heading ── */
-.sub-heading {
-  font-size: .95rem;
-  font-weight: 700;
-  color: var(--blue-800);
-  margin: 1.4rem 0 .6rem;
-  padding-bottom: .3rem;
-  border-bottom: 2px solid var(--blue-100);
-}
-.content > .sub-heading:first-child { margin-top: .2rem; }
-
-/* ── Link cards grid ── */
-.link-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: .6rem;
-}
-.link-card {
-  display: flex;
-  align-items: center;
-  gap: .6rem;
-  padding: .7rem .9rem;
-  background: var(--gray-50);
-  border: 1px solid var(--gray-200);
-  border-radius: 8px;
+  padding: 1.4rem 1.3rem;
   text-decoration: none;
   color: var(--gray-900);
-  font-size: .88rem;
-  font-weight: 500;
-  transition: box-shadow .15s, border-color .15s;
+  transition: box-shadow .15s, transform .15s;
 }
-.link-card:hover {
-  border-color: var(--blue-600);
+.nav-card:hover {
   box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
 }
-.link-card .icon {
-  font-size: 1.2rem;
-  flex-shrink: 0;
-  width: 1.6rem;
-  text-align: center;
-}
-.link-card .label { line-height: 1.35; }
-.link-card .label small {
-  display: block;
-  font-weight: 400;
-  font-size: .78rem;
-  color: var(--gray-500);
-}
-
-/* ── Journal list ── */
-.journal-list {
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: .4rem;
-}
-.journal-list li {
-  padding: .5rem .7rem;
-  background: var(--gray-50);
-  border-radius: 6px;
-  font-size: .88rem;
-  border-left: 3px solid var(--blue-600);
-}
-.journal-list li span.en { color: var(--gray-700); }
-.journal-list li span.abbr {
-  font-size: .78rem;
-  color: var(--gray-500);
-  margin-left: .3rem;
-}
-
-/* ── Ordered / Unordered list ── */
-.guide-list, .checklist, .format-list, .pkg-list, .pattern-list {
-  padding-left: 1.4rem;
-  font-size: .9rem;
-}
-.guide-list li, .checklist li, .format-list li, .pkg-list li, .pattern-list li {
-  margin-bottom: .35rem;
-}
-.checklist { list-style: decimal; }
-.format-list { list-style: disc; }
-.pkg-list { list-style: none; padding-left: 0; }
-.pkg-list li {
-  padding: .45rem .7rem;
-  background: var(--gray-50);
-  border-radius: 6px;
-  border-left: 3px solid var(--blue-600);
-}
-.pkg-list li code {
-  font-family: "SFMono-Regular", "Consolas", "Menlo", monospace;
-  background: var(--blue-100);
-  padding: .1rem .35rem;
-  border-radius: 4px;
-  font-size: .85rem;
-  font-weight: 600;
-  color: var(--blue-800);
-}
-
-.pattern-list { list-style: none; padding-left: 0; }
-.pattern-list li {
-  position: relative;
-  padding: .35rem 0 .35rem 1.3rem;
-}
-.pattern-list li::before {
-  content: "▸";
-  position: absolute;
-  left: 0;
-  color: var(--blue-600);
-  font-weight: 700;
-}
-
-/* ── Guide steps ── */
-.guide-list { list-style: none; padding-left: 0; counter-reset: guide; }
-.guide-list li { counter-increment: guide; position: relative; padding-left: 1.6rem; }
-.guide-list li::before {
-  content: counter(guide);
-  position: absolute;
-  left: 0; top: .1rem;
-  width: 1.2rem; height: 1.2rem;
-  background: var(--blue-600);
-  color: var(--white);
-  font-size: .72rem;
-  font-weight: 700;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-}
-
-/* ── Info box ── */
-.info-box {
-  background: var(--blue-50);
-  border-left: 4px solid var(--blue-600);
-  padding: .7rem 1rem;
-  border-radius: 0 8px 8px 0;
-  font-size: .88rem;
-  margin-top: .8rem;
-  color: var(--gray-700);
-}
-.info-box strong { color: var(--blue-800); }
-
-/* ── Structure flow ── */
-.structure-flow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .5rem;
+.nav-card .card-icon {
+  font-size: 1.8rem;
   margin-bottom: .5rem;
 }
-.structure-flow .step {
-  background: var(--blue-100);
-  color: var(--blue-800);
-  padding: .4rem .8rem;
-  border-radius: 6px;
-  font-size: .85rem;
-  font-weight: 600;
-  position: relative;
-}
-.structure-flow .arrow {
-  display: flex;
-  align-items: center;
-  color: var(--blue-600);
-  font-size: 1rem;
+.nav-card .card-title {
+  font-size: 1.05rem;
   font-weight: 700;
+  color: var(--blue-800);
+  margin-bottom: .3rem;
 }
-
-/* ── Section description ── */
-.section-desc {
-  font-size: .88rem;
-  color: var(--gray-700);
-  margin-bottom: .6rem;
+.nav-card .card-desc {
+  font-size: .82rem;
+  color: var(--gray-500);
+  line-height: 1.5;
 }
-.structure-detail {
-  font-size: .85rem;
-  color: var(--gray-700);
-  padding-left: 1rem;
-  margin-bottom: .5rem;
-}
-
-/* ── Footer ── */
 .site-footer {
   text-align: center;
   padding: 1.5rem 1rem;
@@ -287,346 +88,56 @@ details.section > .content { padding: 0 1.2rem 1.4rem; }
   border-top: 1px solid var(--gray-200);
   margin-top: 1rem;
 }
-
-/* ── Responsive ── */
 @media (max-width: 600px) {
   .site-header { padding: 1.8rem .8rem 1.4rem; }
   .site-header h1 { font-size: 1.3rem; }
-  details.section > summary { font-size: 1rem; padding: .85rem 1rem; }
-  details.section > .content { padding: 0 1rem 1.2rem; }
-  .link-cards { grid-template-columns: 1fr; }
-  .journal-list { grid-template-columns: 1fr; }
-  .structure-flow { flex-direction: column; gap: .3rem; }
-  .structure-flow .arrow { transform: rotate(90deg); align-self: center; }
+  .nav-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
 
-<!-- ━━ Header ━━ -->
 <header class="site-header">
   <h1>社会心理学ゼミ ポータル</h1>
   <p class="subtitle">南山大学 人文学部心理人間学科 土屋ゼミ</p>
 </header>
 
 <main class="main">
+  <nav class="nav-grid">
 
-<!-- ━━ Section 0: 社会心理学ゼミについて ━━ -->
-<details class="section" open>
-  <summary>社会心理学ゼミについて</summary>
-  <div class="content">
+    <a class="nav-card" href="about.html">
+      <div class="card-icon">🎓</div>
+      <div class="card-title">社会心理学ゼミについて</div>
+      <div class="card-desc">大切にしたいこと、グラウンドルール、メンタリング制度、研究の進め方など</div>
+    </a>
 
-    <h3 class="sub-heading">大切にしたいこと</h3>
-    <ul class="pattern-list">
-      <li><strong>自分たちで場を作っていく</strong></li>
-      <li><strong>サポートし合う</strong></li>
-    </ul>
+    <a class="nav-card" href="papers.html">
+      <div class="card-icon">📚</div>
+      <div class="card-title">論文を探す・読む</div>
+      <div class="card-desc">論文データベース、主要ジャーナル、AIを使った検索、レジュメの書き方</div>
+    </a>
 
-    <h3 class="sub-heading">土屋が皆さんに求めること</h3>
-    <ul class="pattern-list">
-      <li>2年間を通して、自分自身で<strong>納得感のある研究を完結</strong>させてほしい</li>
-      <li>物事を進めていくのに必要な<strong>様々なスキル・態度</strong>も身につけてほしい</li>
-      <li>ゼミ生同士、自分も相手も尊重しつつ、<strong>成長を刺激しあえる関係</strong>をつくってほしい</li>
-    </ul>
-    <div class="info-box">これらのために、できることは惜しまず、支援していくつもりです。</div>
+    <a class="nav-card" href="r-analysis.html">
+      <div class="card-icon">📊</div>
+      <div class="card-title">R で分析する</div>
+      <div class="card-desc">R/RStudio セットアップ、基本統計、応用分析、必須パッケージ</div>
+    </a>
 
-    <h3 class="sub-heading">グラウンドルール</h3>
-    <ul class="pattern-list">
-      <li><strong>多様性の尊重</strong> ― 見た目、価値観などについて、非難したり蔑んだりすることのないように</li>
-      <li><strong>率直に伝え合う</strong> ― 感じたことは信頼関係をもとに率直に伝え合う。ただし、言いたくないことは無理に言わなくてもよい</li>
-      <li><strong>関係から学ぶ</strong> ― 内容だけではなく、関わりの過程からも学びを深める</li>
-    </ul>
+    <a class="nav-card" href="writing.html">
+      <div class="card-icon">✍️</div>
+      <div class="card-title">論文を書く</div>
+      <div class="card-desc">論文の構成、フォーマット規定、アウトラインの作り方、研究パターン</div>
+    </a>
 
-    <h3 class="sub-heading">メンタリング制度</h3>
-    <p class="section-desc"><strong>メンタリングカップル</strong>とは、3年生（メンティー）と4年生（メンター）のペア・トリオのことで、原則一年間固定です。希望に基づき、土屋が決定・発表します。</p>
+    <a class="nav-card" href="tools.html">
+      <div class="card-icon">🔧</div>
+      <div class="card-title">ツール・リンク集</div>
+      <div class="card-desc">Discord、翻訳・AI、文献管理、タスク管理、大学関連リンク、Zoom情報</div>
+    </a>
 
-    <h3 class="sub-heading">ジャーナル</h3>
-    <p class="section-desc">毎回、ジャーナルを提出してもらいます。提出先は Discord に掲示します。基本的に<strong>その日のうちに回答</strong>してください。回答で出席を取りますので、出席者のみ回答してください。</p>
-
-    <h3 class="sub-heading">生成AI（ChatGPT等）についての方針</h3>
-    <ul class="pattern-list">
-      <li>論文の生成を全面的にAIに頼るような使い方は<strong>しないでください</strong></li>
-      <li>情報検索としても不正確なものがあり、鵜呑みにしない</li>
-      <li>進めるにあたっての<strong>相談相手</strong>として使うくらいがよい</li>
-      <li>ただし、これからの時代は<strong>AIとどう付き合い、うまく使っていくか</strong>もとても大事</li>
-    </ul>
-
-    <h3 class="sub-heading">研究の進め方（全体の流れ）</h3>
-    <ul class="guide-list">
-      <li>文献リストをつくる（英語含む）</li>
-      <li>土屋にリストを見せて、どれから読むかの指示を受ける</li>
-      <li>レジュメの形式で内容をまとめる</li>
-      <li>自分の関心やこれまでわかっていることを整理しながら、イシューを特定していく</li>
-      <li>イシュー度の高いクレームを設定する</li>
-      <li>アウトラインをつくる → 「問題と目的」を書く</li>
-      <li>方法を定め、検証する → 考察を書く</li>
-    </ul>
-    <div class="info-box">
-      <strong>4年生の目安スケジュール：</strong><br>
-      論文リスト化（4月中）→ イシュー特定（6月中）→ データ収集（7月）→ 分析（8月）→ 執筆（9月）
-    </div>
-
-  </div>
-</details>
-
-<!-- ━━ Section 1: 海外論文を探す・読む ━━ -->
-<details class="section" open>
-  <summary>海外論文を探す・読む</summary>
-  <div class="content">
-
-    <h3 class="sub-heading">論文データベース</h3>
-    <div class="link-cards">
-      <a class="link-card" href="https://scholar.google.com/" target="_blank" rel="noopener">
-        <span class="icon">🔍</span>
-        <span class="label">Google Scholar<small>学術論文の横断検索</small></span>
-      </a>
-      <a class="link-card" href="https://cir.nii.ac.jp/" target="_blank" rel="noopener">
-        <span class="icon">📚</span>
-        <span class="label">CiNii Research<small>日本の学術論文データベース</small></span>
-      </a>
-      <a class="link-card" href="https://psycnet.apa.org/" target="_blank" rel="noopener">
-        <span class="icon">🧠</span>
-        <span class="label">PsycINFO / APA PsycNet<small>心理学専門データベース</small></span>
-      </a>
-      <a class="link-card" href="https://www.jstage.jst.go.jp/" target="_blank" rel="noopener">
-        <span class="icon">📄</span>
-        <span class="label">J-STAGE<small>日本の学術ジャーナル</small></span>
-      </a>
-      <a class="link-card" href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" rel="noopener">
-        <span class="icon">🏥</span>
-        <span class="label">PubMed<small>生物医学・ライフサイエンス</small></span>
-      </a>
-      <a class="link-card" href="https://opac.nanzan-u.ac.jp/" target="_blank" rel="noopener">
-        <span class="icon">🏛️</span>
-        <span class="label">MAGAZINEPLUS<small>南山大学図書館経由で利用</small></span>
-      </a>
-    </div>
-
-    <h3 class="sub-heading">主要ジャーナル</h3>
-    <ul class="journal-list">
-      <li><span class="en">Journal of Personality and Social Psychology</span><span class="abbr">(JPSP)</span></li>
-      <li><span class="en">Journal of Experimental Social Psychology</span><span class="abbr">(JESP)</span></li>
-      <li><span class="en">Psychological Review</span></li>
-      <li>心理学研究<small>（日本心理学会）</small></li>
-      <li>社会心理学研究<small>（日本社会心理学会）</small></li>
-    </ul>
-
-    <h3 class="sub-heading">論文の探し方ガイド</h3>
-    <ul class="guide-list">
-      <li>教科書から<strong>キーワード</strong>を抽出し、データベースで検索する</li>
-      <li>学会誌の<strong>目次</strong>や<strong>引用文献リスト</strong>をたどって芋づる式に探す</li>
-      <li>関心領域の<strong>著者名</strong>を追跡し、同じ研究者の論文を網羅する</li>
-      <li><strong>DeepL</strong> を活用して英語論文を効率的に読む</li>
-    </ul>
-
-    <h3 class="sub-heading">生成AIを使った論文検索</h3>
-    <p class="section-desc">ChatGPT や Claude などの生成AIは、論文検索の<strong>相談相手</strong>として活用できます。ただし、AIが挙げる論文情報は不正確な場合があるため、必ずデータベースで実物を確認してください。</p>
-    <ul class="guide-list">
-      <li><strong>研究テーマの壁打ち</strong> ― 漠然とした関心をAIに伝え、関連する理論・キーワード・研究者名を提案してもらう</li>
-      <li><strong>検索キーワードの拡張</strong> ― 日本語のテーマから英語の検索語（類義語・専門用語）を生成してもらい、Google Scholar 等で検索する</li>
-      <li><strong>研究領域のマッピング</strong> ― 「この分野の代表的な研究を教えて」と聞き、研究の流れや主要な論争を把握する</li>
-      <li><strong>論文の位置づけを相談</strong> ― 読んだ論文の内容をAIに伝え、関連する先行研究や対立する知見を探るヒントを得る</li>
-    </ul>
-    <div class="info-box">
-      <strong>注意：</strong>AIが示す論文タイトル・著者名・年号は<strong>誤りや架空の情報</strong>が混じることがあります（ハルシネーション）。必ず Google Scholar や CiNii で<strong>実在を確認</strong>してから引用してください。AIは「探し方の相談相手」であり、「検索エンジンの代わり」ではありません。
-    </div>
-
-    <h3 class="sub-heading">論文レジュメの書き方（11項目チェックリスト）</h3>
-    <ol class="checklist">
-      <li><strong>選んだ理由と目標</strong> ― なぜこの論文を選んだか、何を学びたいか</li>
-      <li><strong>問い／主張</strong> ― この論文が答えようとしている問いは何か</li>
-      <li><strong>著者にとっての意義 vs 自分にとっての意義</strong></li>
-      <li><strong>先行研究と比較した新規性</strong> ― 何が新しいのか</li>
-      <li><strong>仮説と変数の関係図</strong> ― 独立変数・従属変数・媒介/調整変数</li>
-      <li><strong>方法の詳細</strong> ― 参加者・手続き・測定尺度</li>
-      <li><strong>結果と考察</strong> ― 主要な結果とその解釈</li>
-      <li><strong>新たに生まれた問い</strong> ― 読んで感じた疑問</li>
-      <li><strong>振り返りと学び</strong> ― 自分の研究にどう活かすか</li>
-      <li><strong>次に読む論文</strong> ― 引用文献から次の候補を選ぶ</li>
-      <li><strong>印象的な引用・表現</strong> ― 再利用したいフレーズやロジック</li>
-    </ol>
-
-  </div>
-</details>
-
-<!-- ━━ Section 2: Rで分析する ━━ -->
-<details class="section">
-  <summary>R で分析する</summary>
-  <div class="content">
-
-    <h3 class="sub-heading">セットアップ</h3>
-    <div class="link-cards">
-      <a class="link-card" href="https://cran.r-project.org/" target="_blank" rel="noopener">
-        <span class="icon">📦</span>
-        <span class="label">R のインストール<small>CRAN 公式サイト</small></span>
-      </a>
-      <a class="link-card" href="https://posit.co/download/rstudio-desktop/" target="_blank" rel="noopener">
-        <span class="icon">💻</span>
-        <span class="label">RStudio のインストール<small>Posit 公式サイト</small></span>
-      </a>
-    </div>
-
-    <h3 class="sub-heading">基本統計</h3>
-    <ul class="format-list">
-      <li><strong>記述統計</strong> ― 平均・標準偏差（SD）・最小値・最大値</li>
-      <li><strong>相関分析</strong> ― 相関行列の作成と有意性の検討</li>
-      <li><strong>t 検定</strong> ― 2群間の平均値差の検定</li>
-      <li><strong>分散分析（ANOVA）</strong> ― 3群以上の平均値差の検定</li>
-    </ul>
-
-    <h3 class="sub-heading">応用分析</h3>
-    <ul class="format-list">
-      <li><strong>回帰分析</strong> ― 単回帰・重回帰</li>
-      <li><strong>因子分析</strong> ― 探索的因子分析（EFA）・確認的因子分析（CFA）</li>
-      <li><strong>媒介分析・調整分析</strong> ― 間接効果・交互作用の検討</li>
-      <li><strong>構造方程式モデリング（SEM）</strong> ― パス解析・潜在変数モデル</li>
-    </ul>
-
-    <h3 class="sub-heading">必須パッケージ</h3>
-    <ul class="pkg-list">
-      <li><code>tidyverse</code> ― データ整理・可視化（dplyr, ggplot2 等）</li>
-      <li><code>psych</code> ― 心理統計（記述統計・因子分析・信頼性分析）</li>
-      <li><code>lavaan</code> ― 構造方程式モデリング（SEM）・パス解析</li>
-      <li><code>car</code> ― 分散分析・回帰診断</li>
-      <li><code>effectsize</code> ― 効果量の算出（Cohen's d, η² 等）</li>
-    </ul>
-
-    <h3 class="sub-heading">データ記載の基準</h3>
-    <div class="info-box">
-      <strong>論文に記載すべき統計情報：</strong>
-      <ul style="margin-top:.4rem; padding-left:1.2rem; font-size:.85rem;">
-        <li>全変数の<strong>最小値・最大値・平均値・標準偏差</strong></li>
-        <li>相関行列に<strong>有意性の表記</strong>（* p &lt; .05, ** p &lt; .01）</li>
-        <li><strong>効果量</strong>と<strong>信頼区間</strong>の報告</li>
-      </ul>
-    </div>
-
-  </div>
-</details>
-
-<!-- ━━ Section 3: 論文を書く ━━ -->
-<details class="section">
-  <summary>論文を書く</summary>
-  <div class="content">
-
-    <h3 class="sub-heading">論文の構成</h3>
-    <div class="structure-flow">
-      <span class="step">問題</span><span class="arrow">→</span>
-      <span class="step">方法</span><span class="arrow">→</span>
-      <span class="step">結果</span><span class="arrow">→</span>
-      <span class="step">考察</span>
-    </div>
-    <p class="structure-detail"><strong>問題</strong>：先行研究レビュー → 研究の問い → 仮説の提示</p>
-    <p class="structure-detail"><strong>方法</strong>：参加者・手続き・測定尺度の記述</p>
-    <p class="structure-detail"><strong>結果</strong>：記述統計 → 本分析（仮説検証）</p>
-    <p class="structure-detail"><strong>考察</strong>：結果の解釈 → 限界と展望</p>
-
-    <h3 class="sub-heading">フォーマット規定</h3>
-    <ul class="format-list">
-      <li>日本語本文：<strong>MS 明朝 10.5pt</strong></li>
-      <li>英語：<strong>Times New Roman</strong></li>
-      <li>見出し：<strong>MS ゴシック</strong></li>
-      <li>余白：上下左右 <strong>25mm</strong></li>
-      <li>全ページに<strong>ページ番号</strong>を付ける</li>
-    </ul>
-
-    <h3 class="sub-heading">アウトラインの作り方</h3>
-    <ul class="guide-list">
-      <li><strong>トピックセンテンス</strong>がアウトラインの項目になる</li>
-      <li>各トピックセンテンスが<strong>段落の冒頭文</strong>になる</li>
-      <li><strong>論理の流れ</strong>と<strong>議論の完結性</strong>を確認する</li>
-    </ul>
-
-    <h3 class="sub-heading">心理学研究のパターン</h3>
-    <ul class="pattern-list">
-      <li>未検討の現象を<strong>探索</strong>する</li>
-      <li>仮説効果を<strong>統制条件</strong>で検証する</li>
-      <li>既知の関係の<strong>プロセス</strong>を明らかにする（媒介分析）</li>
-      <li>関係が<strong>条件に依存する</strong>か検討する（調整分析）</li>
-      <li><strong>競合理論</strong>を検証する</li>
-      <li><strong>調整変数</strong>を特定する</li>
-    </ul>
-
-  </div>
-</details>
-
-<!-- ━━ Section 4: ツール・リンク集 ━━ -->
-<details class="section">
-  <summary>ツール・リンク集</summary>
-  <div class="content">
-
-    <h3 class="sub-heading">ゼミ連絡</h3>
-    <div class="link-cards">
-      <a class="link-card" href="https://discord.com/" target="_blank" rel="noopener">
-        <span class="icon">💬</span>
-        <span class="label">Discord<small>ゼミ連絡・ファイル共有・ジャーナル提出</small></span>
-      </a>
-    </div>
-
-    <h3 class="sub-heading">翻訳・AI</h3>
-    <div class="link-cards">
-      <a class="link-card" href="https://www.deepl.com/" target="_blank" rel="noopener">
-        <span class="icon">🌐</span>
-        <span class="label">DeepL<small>論文翻訳に推奨</small></span>
-      </a>
-      <a class="link-card" href="https://chatgpt.com/" target="_blank" rel="noopener">
-        <span class="icon">🤖</span>
-        <span class="label">ChatGPT<small>情報検索の相談相手（丸投げ厳禁）</small></span>
-      </a>
-      <a class="link-card" href="https://claude.ai/" target="_blank" rel="noopener">
-        <span class="icon">🤖</span>
-        <span class="label">Claude<small>Anthropic の AI アシスタント</small></span>
-      </a>
-      <a class="link-card" href="https://notebooklm.google.com/" target="_blank" rel="noopener">
-        <span class="icon">📓</span>
-        <span class="label">Google NotebookLM<small>論文要約・質問応答</small></span>
-      </a>
-    </div>
-
-    <h3 class="sub-heading">文献管理</h3>
-    <div class="link-cards">
-      <a class="link-card" href="https://www.mendeley.com/" target="_blank" rel="noopener">
-        <span class="icon">📑</span>
-        <span class="label">Mendeley<small>無料の文献管理ツール（Elsevier）</small></span>
-      </a>
-    </div>
-
-    <h3 class="sub-heading">タスク・ノート管理</h3>
-    <div class="link-cards">
-      <a class="link-card" href="https://www.notion.so/" target="_blank" rel="noopener">
-        <span class="icon">📝</span>
-        <span class="label">Notion<small>ノート・タスク・データベース</small></span>
-      </a>
-      <a class="link-card" href="https://workflowy.com/" target="_blank" rel="noopener">
-        <span class="icon">📋</span>
-        <span class="label">Workflowy<small>アウトライン形式のノート</small></span>
-      </a>
-      <a class="link-card" href="https://trello.com/" target="_blank" rel="noopener">
-        <span class="icon">📌</span>
-        <span class="label">Trello<small>カンバン式タスク管理</small></span>
-      </a>
-    </div>
-
-    <h3 class="sub-heading">大学関連</h3>
-    <div class="link-cards">
-      <a class="link-card" href="https://opac.nanzan-u.ac.jp/" target="_blank" rel="noopener">
-        <span class="icon">🏛️</span>
-        <span class="label">南山大学図書館 OPAC<small>蔵書検索・論文取り寄せ</small></span>
-      </a>
-    </div>
-
-    <h3 class="sub-heading">Zoom（ゼミ用）</h3>
-    <div class="info-box">
-      <strong>ミーティング ID：</strong>899 7615 6217<br>
-      <strong>パスコード：</strong>804596
-    </div>
-
-  </div>
-</details>
-
+  </nav>
 </main>
 
-<!-- ━━ Footer ━━ -->
 <footer class="site-footer">
   社会心理学ゼミ ポータル ／ 南山大学 土屋耕治
 </footer>

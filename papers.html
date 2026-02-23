@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>論文を探す・読む｜社会心理学ゼミ ポータル</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --blue-800: #1a5276; --blue-700: #1f6d9e; --blue-600: #2980b9;
+  --blue-100: #d6eaf8; --blue-50: #eaf2f8;
+  --gray-50: #f8f9fa; --gray-200: #e9ecef; --gray-500: #868e96;
+  --gray-700: #495057; --gray-900: #212529; --white: #ffffff;
+  --radius: 10px; --shadow: 0 2px 8px rgba(0,0,0,.08); --shadow-hover: 0 4px 16px rgba(0,0,0,.12);
+}
+html { scroll-behavior: smooth; }
+body { font-family: "Hiragino Kaku Gothic ProN","Noto Sans JP","Meiryo",sans-serif; background: var(--gray-50); color: var(--gray-900); line-height: 1.7; -webkit-text-size-adjust: 100%; }
+.page-header { background: linear-gradient(135deg, var(--blue-800), var(--blue-700)); color: var(--white); padding: 1.6rem 1rem 1.2rem; }
+.page-header .back { color: rgba(255,255,255,.7); text-decoration: none; font-size: .82rem; display: inline-block; margin-bottom: .4rem; }
+.page-header .back:hover { color: #fff; }
+.page-header h1 { font-size: 1.35rem; font-weight: 700; }
+.main { max-width: 820px; margin: 0 auto; padding: 1.2rem 1rem 3rem; }
+.card { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.2rem 1.3rem 1.4rem; margin-bottom: 1rem; }
+.sub-heading { font-size: .95rem; font-weight: 700; color: var(--blue-800); margin: 1.4rem 0 .6rem; padding-bottom: .3rem; border-bottom: 2px solid var(--blue-100); }
+.card > .sub-heading:first-child { margin-top: 0; }
+.link-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: .6rem; }
+.link-card { display: flex; align-items: center; gap: .6rem; padding: .7rem .9rem; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 8px; text-decoration: none; color: var(--gray-900); font-size: .88rem; font-weight: 500; transition: box-shadow .15s, border-color .15s; }
+.link-card:hover { border-color: var(--blue-600); box-shadow: var(--shadow-hover); }
+.link-card .icon { font-size: 1.2rem; flex-shrink: 0; width: 1.6rem; text-align: center; }
+.link-card .label { line-height: 1.35; }
+.link-card .label small { display: block; font-weight: 400; font-size: .78rem; color: var(--gray-500); }
+.journal-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: .4rem; }
+.journal-list li { padding: .5rem .7rem; background: var(--gray-50); border-radius: 6px; font-size: .88rem; border-left: 3px solid var(--blue-600); }
+.journal-list li span.en { color: var(--gray-700); }
+.journal-list li span.abbr { font-size: .78rem; color: var(--gray-500); margin-left: .3rem; }
+.guide-list { list-style: none; padding-left: 0; counter-reset: guide; font-size: .9rem; }
+.guide-list li { counter-increment: guide; position: relative; padding-left: 1.6rem; margin-bottom: .35rem; }
+.guide-list li::before { content: counter(guide); position: absolute; left: 0; top: .1rem; width: 1.2rem; height: 1.2rem; background: var(--blue-600); color: var(--white); font-size: .72rem; font-weight: 700; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.checklist { list-style: decimal; padding-left: 1.4rem; font-size: .9rem; }
+.checklist li { margin-bottom: .35rem; }
+.info-box { background: var(--blue-50); border-left: 4px solid var(--blue-600); padding: .7rem 1rem; border-radius: 0 8px 8px 0; font-size: .88rem; margin-top: .8rem; color: var(--gray-700); }
+.info-box strong { color: var(--blue-800); }
+.section-desc { font-size: .88rem; color: var(--gray-700); margin-bottom: .6rem; }
+.site-footer { text-align: center; padding: 1.5rem 1rem; font-size: .8rem; color: var(--gray-500); border-top: 1px solid var(--gray-200); margin-top: 1rem; }
+@media (max-width: 600px) { .page-header { padding: 1.2rem .8rem 1rem; } .page-header h1 { font-size: 1.15rem; } .card { padding: 1rem; } .link-cards { grid-template-columns: 1fr; } .journal-list { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <a class="back" href="index.html">← ポータルに戻る</a>
+  <h1>📚 論文を探す・読む</h1>
+</header>
+
+<main class="main">
+
+  <div class="card">
+    <h3 class="sub-heading">論文データベース</h3>
+    <div class="link-cards">
+      <a class="link-card" href="https://scholar.google.com/" target="_blank" rel="noopener">
+        <span class="icon">🔍</span>
+        <span class="label">Google Scholar<small>学術論文の横断検索</small></span>
+      </a>
+      <a class="link-card" href="https://cir.nii.ac.jp/" target="_blank" rel="noopener">
+        <span class="icon">📚</span>
+        <span class="label">CiNii Research<small>日本の学術論文データベース</small></span>
+      </a>
+      <a class="link-card" href="https://psycnet.apa.org/" target="_blank" rel="noopener">
+        <span class="icon">🧠</span>
+        <span class="label">PsycINFO / APA PsycNet<small>心理学専門データベース</small></span>
+      </a>
+      <a class="link-card" href="https://www.jstage.jst.go.jp/" target="_blank" rel="noopener">
+        <span class="icon">📄</span>
+        <span class="label">J-STAGE<small>日本の学術ジャーナル</small></span>
+      </a>
+      <a class="link-card" href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" rel="noopener">
+        <span class="icon">🏥</span>
+        <span class="label">PubMed<small>生物医学・ライフサイエンス</small></span>
+      </a>
+      <a class="link-card" href="https://opac.nanzan-u.ac.jp/" target="_blank" rel="noopener">
+        <span class="icon">🏛️</span>
+        <span class="label">MAGAZINEPLUS<small>南山大学図書館経由で利用</small></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="sub-heading">主要ジャーナル</h3>
+    <ul class="journal-list">
+      <li><span class="en">Journal of Personality and Social Psychology</span><span class="abbr">(JPSP)</span></li>
+      <li><span class="en">Journal of Experimental Social Psychology</span><span class="abbr">(JESP)</span></li>
+      <li><span class="en">Psychological Review</span></li>
+      <li>心理学研究<small>（日本心理学会）</small></li>
+      <li>社会心理学研究<small>（日本社会心理学会）</small></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3 class="sub-heading">論文の探し方ガイド</h3>
+    <ul class="guide-list">
+      <li>教科書から<strong>キーワード</strong>を抽出し、データベースで検索する</li>
+      <li>学会誌の<strong>目次</strong>や<strong>引用文献リスト</strong>をたどって芋づる式に探す</li>
+      <li>関心領域の<strong>著者名</strong>を追跡し、同じ研究者の論文を網羅する</li>
+      <li><strong>DeepL</strong> を活用して英語論文を効率的に読む</li>
+    </ul>
+
+    <h3 class="sub-heading">生成AIを使った論文検索</h3>
+    <p class="section-desc">ChatGPT や Claude などの生成AIは、論文検索の<strong>相談相手</strong>として活用できます。ただし、AIが挙げる論文情報は不正確な場合があるため、必ずデータベースで実物を確認してください。</p>
+    <ul class="guide-list">
+      <li><strong>研究テーマの壁打ち</strong> ― 漠然とした関心をAIに伝え、関連する理論・キーワード・研究者名を提案してもらう</li>
+      <li><strong>検索キーワードの拡張</strong> ― 日本語のテーマから英語の検索語（類義語・専門用語）を生成してもらい、Google Scholar 等で検索する</li>
+      <li><strong>研究領域のマッピング</strong> ― 「この分野の代表的な研究を教えて」と聞き、研究の流れや主要な論争を把握する</li>
+      <li><strong>論文の位置づけを相談</strong> ― 読んだ論文の内容をAIに伝え、関連する先行研究や対立する知見を探るヒントを得る</li>
+    </ul>
+    <div class="info-box">
+      <strong>注意：</strong>AIが示す論文タイトル・著者名・年号は<strong>誤りや架空の情報</strong>が混じることがあります（ハルシネーション）。必ず Google Scholar や CiNii で<strong>実在を確認</strong>してから引用してください。AIは「探し方の相談相手」であり、「検索エンジンの代わり」ではありません。
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="sub-heading">論文レジュメの書き方（11項目チェックリスト）</h3>
+    <ol class="checklist">
+      <li><strong>選んだ理由と目標</strong> ― なぜこの論文を選んだか、何を学びたいか</li>
+      <li><strong>問い／主張</strong> ― この論文が答えようとしている問いは何か</li>
+      <li><strong>著者にとっての意義 vs 自分にとっての意義</strong></li>
+      <li><strong>先行研究と比較した新規性</strong> ― 何が新しいのか</li>
+      <li><strong>仮説と変数の関係図</strong> ― 独立変数・従属変数・媒介/調整変数</li>
+      <li><strong>方法の詳細</strong> ― 参加者・手続き・測定尺度</li>
+      <li><strong>結果と考察</strong> ― 主要な結果とその解釈</li>
+      <li><strong>新たに生まれた問い</strong> ― 読んで感じた疑問</li>
+      <li><strong>振り返りと学び</strong> ― 自分の研究にどう活かすか</li>
+      <li><strong>次に読む論文</strong> ― 引用文献から次の候補を選ぶ</li>
+      <li><strong>印象的な引用・表現</strong> ― 再利用したいフレーズやロジック</li>
+    </ol>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  社会心理学ゼミ ポータル ／ 南山大学 土屋耕治
+</footer>
+
+</body>
+</html>
