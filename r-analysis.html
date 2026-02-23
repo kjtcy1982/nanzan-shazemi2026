@@ -103,6 +103,16 @@ body { font-family: "Hiragino Kaku Gothic ProN","Noto Sans JP","Meiryo",sans-ser
 
   <!-- ── Script Finder ── -->
   <div class="card">
+    <h3 class="sub-heading">生成AIとRの使い分け</h3>
+    <div class="info-box" style="margin-top:0; margin-bottom:1.2rem;">
+      <strong>分析の実行は自分のRで。AIは「Rの先生」として使う。</strong>
+      <ul style="margin-top:.4rem; padding-left:1.2rem; font-size:.85rem;">
+        <li><strong>ChatGPT / Claude</strong> →「こういう分析をしたいけど、Rでどう書く？」とスクリプトの書き方を聞く</li>
+        <li><strong>R / RStudio</strong> → 実際の分析はここで実行する</li>
+      </ul>
+      <p style="margin-top:.5rem; font-size:.82rem;">ChatGPT上でも分析は動きますが、使えるパッケージに制限があり、<strong>個人情報を含む調査データのアップロードは要注意</strong>です。また出力の解釈が誤っていることもあります。自分のRで回せば<strong>再現可能</strong>で、論文にも「Rを用いて分析した」と記載できます。</p>
+    </div>
+
     <h3 class="sub-heading">Rスクリプト検索</h3>
     <div class="search-box">
       <input type="text" id="scriptSearch" placeholder="やりたい分析を入力（例：t検定、相関、媒介分析）">
