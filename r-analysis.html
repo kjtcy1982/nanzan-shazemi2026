@@ -38,7 +38,58 @@ body { font-family: "Hiragino Kaku Gothic ProN","Noto Sans JP","Meiryo",sans-ser
 .info-box { background: var(--blue-50); border-left: 4px solid var(--blue-600); padding: .7rem 1rem; border-radius: 0 8px 8px 0; font-size: .88rem; margin-top: .8rem; color: var(--gray-700); }
 .info-box strong { color: var(--blue-800); }
 .site-footer { text-align: center; padding: 1.5rem 1rem; font-size: .8rem; color: var(--gray-500); border-top: 1px solid var(--gray-200); margin-top: 1rem; }
-@media (max-width: 600px) { .page-header { padding: 1.2rem .8rem 1rem; } .page-header h1 { font-size: 1.15rem; } .card { padding: 1rem; } .link-cards { grid-template-columns: 1fr; } }
+
+/* ── Script Finder ── */
+.search-box { position: relative; margin-bottom: .5rem; }
+.search-box input {
+  width: 100%; padding: .75rem 1rem .75rem 2.6rem;
+  border: 2px solid var(--gray-200); border-radius: 8px;
+  font-size: .95rem; font-family: inherit; outline: none;
+  transition: border-color .15s;
+}
+.search-box input:focus { border-color: var(--blue-600); }
+.search-box::before {
+  content: "🔍"; position: absolute; left: .85rem; top: 50%;
+  transform: translateY(-50%); font-size: 1rem; pointer-events: none;
+}
+.search-hint { font-size: .78rem; color: var(--gray-500); margin-bottom: 1rem; }
+.tag-bar { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: 1rem; }
+.tag-btn {
+  background: var(--blue-50); color: var(--blue-800); border: 1px solid var(--blue-100);
+  padding: .3rem .7rem; border-radius: 20px; font-size: .78rem; font-weight: 500;
+  cursor: pointer; font-family: inherit; transition: background .15s, border-color .15s;
+}
+.tag-btn:hover, .tag-btn.active { background: var(--blue-600); color: var(--white); border-color: var(--blue-600); }
+.script-item { display: none; margin-bottom: 1.2rem; }
+.script-item.visible { display: block; }
+.script-title {
+  font-size: .92rem; font-weight: 700; color: var(--blue-800);
+  margin-bottom: .15rem;
+}
+.script-desc { font-size: .82rem; color: var(--gray-700); margin-bottom: .5rem; }
+.script-tags { display: flex; flex-wrap: wrap; gap: .3rem; margin-bottom: .5rem; }
+.script-tag {
+  background: var(--blue-50); color: var(--blue-700);
+  padding: .1rem .5rem; border-radius: 10px; font-size: .7rem; font-weight: 500;
+}
+.code-block {
+  position: relative; background: #1e293b; color: #e2e8f0;
+  border-radius: 8px; padding: 1rem; overflow-x: auto;
+  font-family: "SFMono-Regular","Consolas","Menlo",monospace;
+  font-size: .8rem; line-height: 1.6; white-space: pre;
+}
+.copy-btn {
+  position: absolute; top: .5rem; right: .5rem;
+  background: rgba(255,255,255,.15); color: #e2e8f0; border: none;
+  padding: .3rem .6rem; border-radius: 6px; font-size: .72rem;
+  cursor: pointer; font-family: inherit; transition: background .15s;
+}
+.copy-btn:hover { background: rgba(255,255,255,.3); }
+.no-results { display: none; text-align: center; padding: 2rem; color: var(--gray-500); font-size: .9rem; }
+.no-results.visible { display: block; }
+.script-sep { border: none; border-top: 1px solid var(--gray-200); margin: 1.2rem 0 0; }
+
+@media (max-width: 600px) { .page-header { padding: 1.2rem .8rem 1rem; } .page-header h1 { font-size: 1.15rem; } .card { padding: 1rem; } .link-cards { grid-template-columns: 1fr; } .code-block { font-size: .72rem; } }
 </style>
 </head>
 <body>
@@ -50,6 +101,321 @@ body { font-family: "Hiragino Kaku Gothic ProN","Noto Sans JP","Meiryo",sans-ser
 
 <main class="main">
 
+  <!-- ── Script Finder ── -->
+  <div class="card">
+    <h3 class="sub-heading">Rスクリプト検索</h3>
+    <div class="search-box">
+      <input type="text" id="scriptSearch" placeholder="やりたい分析を入力（例：t検定、相関、媒介分析）">
+    </div>
+    <p class="search-hint">キーワードを入力するか、タグをクリックしてください</p>
+    <div class="tag-bar" id="tagBar">
+      <button class="tag-btn" data-tag="データ読込">データ読込</button>
+      <button class="tag-btn" data-tag="記述統計">記述統計</button>
+      <button class="tag-btn" data-tag="相関">相関</button>
+      <button class="tag-btn" data-tag="t検定">t検定</button>
+      <button class="tag-btn" data-tag="分散分析">分散分析</button>
+      <button class="tag-btn" data-tag="回帰">回帰分析</button>
+      <button class="tag-btn" data-tag="因子分析">因子分析</button>
+      <button class="tag-btn" data-tag="信頼性">信頼性</button>
+      <button class="tag-btn" data-tag="媒介">媒介分析</button>
+      <button class="tag-btn" data-tag="調整">調整分析</button>
+      <button class="tag-btn" data-tag="SEM">SEM</button>
+      <button class="tag-btn" data-tag="効果量">効果量</button>
+      <button class="tag-btn" data-tag="可視化">可視化</button>
+    </div>
+
+    <div id="scriptResults">
+
+      <div class="script-item" data-keywords="データ読込 csv 読み込み ファイル インポート import data">
+        <div class="script-title">CSVファイルの読み込み</div>
+        <div class="script-desc">CSVファイルを読み込んでデータフレームに格納する</div>
+        <div class="script-tags"><span class="script-tag">データ読込</span></div>
+        <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">コピー</button># CSVファイルの読み込み
+x <- read.csv("data.csv", header = TRUE, fileEncoding = "CP932")
+
+# データの確認
+head(x)        # 先頭6行
+str(x)         # 変数の型
+summary(x)     # 要約統計</div>
+      </div>
+
+      <div class="script-item" data-keywords="記述統計 平均 標準偏差 SD 最小 最大 要約 descriptive">
+        <div class="script-title">記述統計（平均・SD・最小・最大）</div>
+        <div class="script-desc">全変数の平均値、標準偏差、最小値、最大値を算出する</div>
+        <div class="script-tags"><span class="script-tag">記述統計</span></div>
+        <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">コピー</button>library(psych)
+
+# 記述統計の算出
+describe(x)
+
+# 特定の変数のみ
+describe(x[, c("var1", "var2", "var3")])
+
+# 名義尺度の度数分布
+table(x$gender)
+table(x$condition)</div>
+      </div>
+
+      <div class="script-item" data-keywords="相関 相関分析 相関行列 correlation ピアソン スピアマン pearson spearman">
+        <div class="script-title">相関分析（相関行列の作成）</div>
+        <div class="script-desc">変数間の相関係数と有意性検定を行う</div>
+        <div class="script-tags"><span class="script-tag">相関</span></div>
+        <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">コピー</button>library(psych)
+
+# ピアソンの相関行列（有意性検定付き）
+corr.test(x[, c("var1", "var2", "var3")], method = "pearson")
+
+# スピアマンの順位相関（順序データの場合）
+corr.test(x[, c("var1", "var2", "var3")], method = "spearman")
+
+# 相関行列の表示（見やすい形式）
+r <- corr.test(x[, c("var1", "var2", "var3")])
+print(r, short = FALSE)  # 相関係数 + p値 + 信頼区間</div>
+      </div>
+
+      <div class="script-item" data-keywords="t検定 t-test 平均差 2群 比較 対応あり 対応なし">
+        <div class="script-title">t検定（2群の平均値差の検定）</div>
+        <div class="script-desc">2つの群の平均値に統計的な差があるかを検定する</div>
+        <div class="script-tags"><span class="script-tag">t検定</span><span class="script-tag">効果量</span></div>
+        <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">コピー</button>library(effectsize)
+
+# 対応なしt検定（独立2群）
+result <- t.test(score ~ group, data = x)
+print(result)
+
+# 効果量（Cohen's d）
+cohens_d(score ~ group, data = x)
+
+# 対応ありt検定
+t.test(x$pre, x$post, paired = TRUE)
+
+# 群ごとの記述統計
+tapply(x$score, x$group, function(v) c(M = mean(v), SD = sd(v), n = length(v)))</div>
+      </div>
+
+      <div class="script-item" data-keywords="分散分析 ANOVA 一要因 二要因 多重比較 交互作用 anova 対応あり 対応なし 被験者間 被験者内">
+        <div class="script-title">分散分析（ANOVA）</div>
+        <div class="script-desc">3群以上の平均値差の検定と多重比較を行う</div>
+        <div class="script-tags"><span class="script-tag">分散分析</span><span class="script-tag">効果量</span></div>
+        <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">コピー</button>library(car)
+library(effectsize)
+
+# 一要因分散分析
+model <- aov(score ~ group, data = x)
+summary(model)
+eta_squared(model)       # 効果量
+
+# 多重比較（Tukey法）
+TukeyHSD(model)
+
+# 二要因分散分析（交互作用あり）
+model2 <- aov(score ~ factor1 * factor2, data = x)
+Anova(model2, type = "III")  # Type III SS
+eta_squared(model2)
+
+# 対応あり（被験者内）分散分析
+# データは long format にしておく
+library(ez)
+ezANOVA(data = x_long, dv = score, wid = id, within = condition)</div>
+      </div>
+
+      <div class="script-item" data-keywords="回帰 回帰分析 単回帰 重回帰 regression 予測 影響">
+        <div class="script-title">回帰分析（単回帰・重回帰）</div>
+        <div class="script-desc">独立変数から従属変数を予測するモデルを推定する</div>
+        <div class="script-tags"><span class="script-tag">回帰</span></div>
+        <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">コピー</button># 単回帰分析
+model <- lm(y ~ x1, data = x)
+summary(model)
+
+# 重回帰分析
+model <- lm(y ~ x1 + x2 + x3, data = x)
+summary(model)
+confint(model)   # 95%信頼区間
+
+# 標準化係数
+library(lm.beta)
+lm.beta(model)
+
+# VIF（多重共線性の確認）
+library(car)
+vif(model)</div>
+      </div>
+
+      <div class="script-item" data-keywords="信頼性 信頼性分析 α アルファ クロンバック cronbach alpha 内的整合性">
+        <div class="script-title">信頼性分析（Cronbach's α）</div>
+        <div class="script-desc">尺度の内的整合性（信頼性係数α）を算出する</div>
+        <div class="script-tags"><span class="script-tag">信頼性</span></div>
+        <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">コピー</button>library(psych)
+
+# 尺度を構成する項目を指定
+scale_items <- x[, c("item1", "item2", "item3", "item4")]
+
+# Cronbach's α
+alpha(scale_items)
+
+# 逆転項目がある場合（例：item3を逆転）
+alpha(scale_items, keys = c(1, 1, -1, 1))
+
+# 尺度得点の算出（平均値）
+x$scale_score <- rowMeans(scale_items, na.rm = TRUE)</div>
+      </div>
+
+      <div class="script-item" data-keywords="因子分析 探索的 確認的 EFA CFA factor 因子負荷量 スクリープロット">
+        <div class="script-title">探索的因子分析（EFA）</div>
+        <div class="script-desc">観測変数の背後にある潜在因子を探索する</div>
+        <div class="script-tags"><span class="script-tag">因子分析</span></div>
+        <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">コピー</button>library(psych)
+
+items <- x[, c("item1", "item2", "item3", "item4", "item5", "item6")]
+
+# 因子数の推定（スクリープロット）
+scree(items)
+fa.parallel(items)
+
+# 因子分析の実行（例：2因子、プロマックス回転）
+result <- fa(items, nfactors = 2, rotate = "promax", fm = "ml")
+print(result, cut = 0.30)    # 因子負荷量 .30 以上を表示
+fa.diagram(result)            # ダイアグラム表示</div>
+      </div>
+
+      <div class="script-item" data-keywords="媒介 媒介分析 間接効果 mediation プロセス ブートストラップ">
+        <div class="script-title">媒介分析（間接効果の検定）</div>
+        <div class="script-desc">X → M → Y の間接効果をブートストラップ法で検定する</div>
+        <div class="script-tags"><span class="script-tag">媒介</span><span class="script-tag">SEM</span></div>
+        <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">コピー</button>library(lavaan)
+
+# モデルの定義（X → M → Y）
+med_model <- '
+  # 直接効果
+  Y ~ c*X + b*M
+  # X → M のパス
+  M ~ a*X
+  # 間接効果
+  indirect := a * b
+  # 総合効果
+  total := c + a * b
+'
+
+# 推定（ブートストラップ 5000回）
+fit <- sem(med_model, data = x, se = "bootstrap", bootstrap = 5000)
+summary(fit, ci = TRUE)
+parameterEstimates(fit, boot.ci.type = "bca.simple")</div>
+      </div>
+
+      <div class="script-item" data-keywords="調整 調整分析 交互作用 moderation interaction 単純傾斜">
+        <div class="script-title">調整分析（交互作用の検定）</div>
+        <div class="script-desc">X → Y の関係が調整変数 W によって異なるかを検定する</div>
+        <div class="script-tags"><span class="script-tag">調整</span><span class="script-tag">回帰</span></div>
+        <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">コピー</button># 変数の中心化（交互作用項を作る前に）
+x$X_c <- scale(x$X, scale = FALSE)
+x$W_c <- scale(x$W, scale = FALSE)
+x$XW  <- x$X_c * x$W_c
+
+# 交互作用を含む重回帰
+model <- lm(Y ~ X_c + W_c + XW, data = x)
+summary(model)
+
+# 単純傾斜検定（W が高/低のときの X の効果）
+library(interactions)
+sim_slopes(model, pred = X_c, modx = W_c)
+interact_plot(model, pred = X_c, modx = W_c, interval = TRUE)</div>
+      </div>
+
+      <div class="script-item" data-keywords="SEM 構造方程式 パス解析 潜在変数 path structural equation">
+        <div class="script-title">構造方程式モデリング（SEM）</div>
+        <div class="script-desc">潜在変数を含むパスモデルを推定する</div>
+        <div class="script-tags"><span class="script-tag">SEM</span></div>
+        <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">コピー</button>library(lavaan)
+
+# モデルの定義
+sem_model <- '
+  # 測定モデル（潜在変数の定義）
+  F1 =~ item1 + item2 + item3
+  F2 =~ item4 + item5 + item6
+
+  # 構造モデル（パス）
+  F2 ~ F1
+'
+
+# 推定
+fit <- sem(sem_model, data = x)
+summary(fit, fit.measures = TRUE, standardized = TRUE)
+
+# 適合度指標
+fitMeasures(fit, c("cfi", "tli", "rmsea", "srmr"))
+
+# パス図
+library(semPlot)
+semPaths(fit, "std", layout = "tree")</div>
+      </div>
+
+      <div class="script-item" data-keywords="効果量 effect size Cohen d η2 eta 検定力 power">
+        <div class="script-title">効果量の算出</div>
+        <div class="script-desc">各種検定の効果量（Cohen's d, η², r）を算出する</div>
+        <div class="script-tags"><span class="script-tag">効果量</span></div>
+        <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">コピー</button>library(effectsize)
+
+# t検定の効果量（Cohen's d）
+cohens_d(score ~ group, data = x)
+
+# ANOVAの効果量（η²）
+model <- aov(score ~ group, data = x)
+eta_squared(model)
+# または偏η²
+eta_squared(model, partial = TRUE)
+
+# 相関係数 r はそのまま効果量として報告可能
+# 小: r = .10, 中: r = .30, 大: r = .50</div>
+      </div>
+
+      <div class="script-item" data-keywords="可視化 グラフ 棒グラフ 散布図 ヒストグラム plot ggplot 図">
+        <div class="script-title">データの可視化（ggplot2）</div>
+        <div class="script-desc">ヒストグラム、散布図、棒グラフなどを作成する</div>
+        <div class="script-tags"><span class="script-tag">可視化</span></div>
+        <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">コピー</button>library(ggplot2)
+
+# ヒストグラム
+ggplot(x, aes(x = score)) +
+  geom_histogram(bins = 15, fill = "#2980b9", alpha = 0.7) +
+  theme_minimal()
+
+# 散布図（回帰直線付き）
+ggplot(x, aes(x = var1, y = var2)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  theme_minimal()
+
+# 群別の棒グラフ（平均 + エラーバー）
+library(dplyr)
+summary_df <- x %>%
+  group_by(group) %>%
+  summarise(M = mean(score), SE = sd(score) / sqrt(n()))
+
+ggplot(summary_df, aes(x = group, y = M, fill = group)) +
+  geom_col(width = 0.6) +
+  geom_errorbar(aes(ymin = M - SE, ymax = M + SE), width = 0.2) +
+  theme_minimal()</div>
+      </div>
+
+      <div class="script-item" data-keywords="偏相関 partial correlation 統制 コントロール">
+        <div class="script-title">偏相関分析</div>
+        <div class="script-desc">第3変数を統制した上での2変数間の相関を算出する</div>
+        <div class="script-tags"><span class="script-tag">相関</span></div>
+        <div class="code-block"><button class="copy-btn" onclick="copyCode(this)">コピー</button>library(ppcor)
+
+# var1とvar2の相関を、var3を統制して算出
+pcor.test(x$var1, x$var2, x$var3)
+
+# 複数変数を統制
+pcor(x[, c("var1", "var2", "control1", "control2")])</div>
+      </div>
+
+    </div>
+
+    <div class="no-results" id="noResults">該当するスクリプトが見つかりません</div>
+  </div>
+
+  <!-- ── Setup ── -->
   <div class="card">
     <h3 class="sub-heading">セットアップ</h3>
     <div class="link-cards">
@@ -64,24 +430,7 @@ body { font-family: "Hiragino Kaku Gothic ProN","Noto Sans JP","Meiryo",sans-ser
     </div>
   </div>
 
-  <div class="card">
-    <h3 class="sub-heading">基本統計</h3>
-    <ul class="format-list">
-      <li><strong>記述統計</strong> ― 平均・標準偏差（SD）・最小値・最大値</li>
-      <li><strong>相関分析</strong> ― 相関行列の作成と有意性の検討</li>
-      <li><strong>t 検定</strong> ― 2群間の平均値差の検定</li>
-      <li><strong>分散分析（ANOVA）</strong> ― 3群以上の平均値差の検定</li>
-    </ul>
-
-    <h3 class="sub-heading">応用分析</h3>
-    <ul class="format-list">
-      <li><strong>回帰分析</strong> ― 単回帰・重回帰</li>
-      <li><strong>因子分析</strong> ― 探索的因子分析（EFA）・確認的因子分析（CFA）</li>
-      <li><strong>媒介分析・調整分析</strong> ― 間接効果・交互作用の検討</li>
-      <li><strong>構造方程式モデリング（SEM）</strong> ― パス解析・潜在変数モデル</li>
-    </ul>
-  </div>
-
+  <!-- ── Packages ── -->
   <div class="card">
     <h3 class="sub-heading">必須パッケージ</h3>
     <ul class="pkg-list">
@@ -93,6 +442,7 @@ body { font-family: "Hiragino Kaku Gothic ProN","Noto Sans JP","Meiryo",sans-ser
     </ul>
   </div>
 
+  <!-- ── Reporting ── -->
   <div class="card">
     <h3 class="sub-heading">データ記載の基準</h3>
     <div class="info-box">
@@ -110,6 +460,61 @@ body { font-family: "Hiragino Kaku Gothic ProN","Noto Sans JP","Meiryo",sans-ser
 <footer class="site-footer">
   社会心理学ゼミ ポータル ／ 南山大学 土屋耕治
 </footer>
+
+<script>
+(function() {
+  const input = document.getElementById('scriptSearch');
+  const items = document.querySelectorAll('.script-item');
+  const noResults = document.getElementById('noResults');
+  const tagBtns = document.querySelectorAll('.tag-btn');
+
+  function filter(query) {
+    query = query.toLowerCase().trim();
+    let found = 0;
+    items.forEach(item => {
+      const kw = item.dataset.keywords.toLowerCase();
+      const title = item.querySelector('.script-title').textContent.toLowerCase();
+      const desc = item.querySelector('.script-desc').textContent.toLowerCase();
+      const match = !query || kw.includes(query) || title.includes(query) || desc.includes(query);
+      item.classList.toggle('visible', match);
+      if (match) found++;
+    });
+    noResults.classList.toggle('visible', found === 0 && query.length > 0);
+  }
+
+  // Show all on load
+  items.forEach(i => i.classList.add('visible'));
+
+  input.addEventListener('input', function() {
+    tagBtns.forEach(b => b.classList.remove('active'));
+    filter(this.value);
+  });
+
+  tagBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const isActive = this.classList.contains('active');
+      tagBtns.forEach(b => b.classList.remove('active'));
+      if (isActive) {
+        input.value = '';
+        filter('');
+      } else {
+        this.classList.add('active');
+        input.value = this.dataset.tag;
+        filter(this.dataset.tag);
+      }
+    });
+  });
+})();
+
+function copyCode(btn) {
+  const block = btn.parentElement;
+  const code = block.textContent.replace('コピー', '').trim();
+  navigator.clipboard.writeText(code).then(() => {
+    btn.textContent = 'コピー済み';
+    setTimeout(() => btn.textContent = 'コピー', 1500);
+  });
+}
+</script>
 
 </body>
 </html>
